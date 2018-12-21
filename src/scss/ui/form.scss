@@ -1,0 +1,66 @@
+input[type="text"],
+input[type="email"],
+textarea {
+  position: relative;
+  outline: 0;
+  padding: $padding--standard / 2;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid $color--light;
+  background: #fff;
+  transition: border $duration $ease;
+
+  &:hover,
+  &:active {
+    border-color: $color--main;
+  }
+}
+
+input[type="submit"] {
+  display: block;
+  margin: 0 auto;
+}
+
+/* WPCF7 */
+
+.screen-reader-response {
+  display: none;
+}
+
+.wpcf7-response-output {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #fff;
+  background-color: $color--main;
+}
+
+.wpcf7-validation-errors,
+.wpcf7-mail-sent-ng,
+.wpcf7-aborted,
+.wpcf7-spam-blocked,
+.wpcf7-acceptance-missing {
+  padding: $padding--standard !important;
+  background-color: $color--error;
+  animation: fadeOut .5s $ease 3s forwards;
+}
+
+.wpcf7-mail-sent-ok {
+  padding: $padding--standard !important;
+  background-color: $color--validate;
+  animation: fadeOut .5s $ease 3s forwards;
+}
+
+.wpcf7-display-none {
+  padding: 0;
+}
+
+.wpcf7-not-valid-tip {
+  display: none;
+}
+
+.wpcf7-not-valid {
+  border: 1px solid $color--error !important;
+}

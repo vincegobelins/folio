@@ -1,0 +1,47 @@
+.edito {
+
+  display: flex;
+  align-items: center;
+  margin: - $padding--standard;
+
+  &--right {
+    flex-direction: row-reverse;
+  }
+
+  @include media("<tablet") {
+    flex-direction: column;
+  }
+
+  &__image {
+
+    z-index: 0;
+    overflow: hidden;
+    position: relative;
+    display: block;
+
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: $radius--standard;
+    }
+  }
+
+  &__text {
+    text-align: left;
+  }
+
+  &__image,
+  &__text {
+    flex-basis: 50%;
+    max-width: 50%;
+    padding: $padding--standard;
+
+    @include media("<tablet") {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
+
+  }
+
+}

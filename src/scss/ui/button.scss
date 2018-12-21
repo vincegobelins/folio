@@ -1,0 +1,21 @@
+.button {
+  position: relative;
+  padding: $padding--standard;
+  margin: $margin--standard auto;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: $letter--spacing;
+  font-weight: bold;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: $padding--standard;
+    width: calc(100% - 2 * #{$padding--standard});
+    height: $border--standard;
+    background-color: $color--text;
+    transition: width $duration $ease;
+  }
+}

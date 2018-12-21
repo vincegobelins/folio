@@ -1,0 +1,51 @@
+.steps {
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    margin: $margin--standard 0;
+    padding: $padding--standard;
+    padding-top: $padding--standard * 2;
+    box-sizing: border-box;
+    flex-basis: 50%;
+    max-width: 50%;
+    counter-increment: steps;
+
+    &:after {
+      content: none;
+    }
+
+    &--big {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
+
+    &:before {
+      content: counter(steps);
+      position: absolute;
+      top: 0;
+      left: calc(50% - 2rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 4rem;
+      height: 4rem;
+      font-weight: bold;
+      color: #fff;
+      background-color: $color--main;
+      border-radius: 50%;
+
+      .section--secondary & {
+        background-color: $color--secondary;
+      }
+    }
+
+    @include media("<tablet") {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.highlights {
+
+  display: flex;
+  justify-content: center;
+
+  &__list {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__item {
+    padding: $padding--standard * 2;
+
+    &:after {
+      content: none;
+    }
+  }
+
+  &__icon {
+    padding: $padding--standard;
+  }
+}

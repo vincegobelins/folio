@@ -1,0 +1,39 @@
+.footer {
+  display: none;
+  //TODO
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+
+  &__credits {
+    display: block;
+    padding: $padding--standard;
+    //background-color: darken($color--main, 20);
+    color: $color--text;
+    text-align: center;
+  }
+
+  &__menu {
+    background-color: $color--main;
+  }
+
+  .footer-menu {
+
+    &__list {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__item {
+      display: inline-flex;
+
+      a {
+        text-decoration: none;
+        padding: $padding--standard;
+        color: #fff;
+      }
+    }
+  }
+}

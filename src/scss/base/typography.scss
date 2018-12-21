@@ -1,0 +1,76 @@
+* {
+  font-family: $font--main;
+  color: $color--text;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  position: relative;
+  padding-left: $padding--standard;
+  list-style-type: none;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: $color--main;
+
+    .section--secondary & {
+      background-color: $color--secondary;
+    }
+  }
+
+  .header &,
+  .footer & {
+
+    padding-left: 0;
+
+    &:after {
+      content: none;
+    }
+  }
+}
+
+h2, h3, h4, h5, h6 {
+  text-transform: uppercase;
+  letter-spacing: $letter--spacing;
+}
+
+h2 {
+  margin: 0;
+  font-size: 5rem;
+}
+
+svg {
+  color: inherit;
+
+  * {
+    color: inherit;
+  }
+}
+
+.fa {
+  color: #fff;
+}
+
+.bold {
+  font-weight: bold;
+}

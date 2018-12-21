@@ -1,0 +1,13 @@
+$ease: ease-in-out;
+$duration: .25s;
+$shadow--standard: 2px 2px 20px 0px rgba(0,0,0,0.2);
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

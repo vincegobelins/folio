@@ -1,0 +1,71 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  padding: 2 * $margin--standard $margin--standard;
+
+  &__subtitle {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: $margin--standard;
+  }
+
+  &--image {
+    position: relative;
+    z-index: 0;
+    font-size: 3rem;
+
+    &:after {
+      z-index: -1;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.3);
+    }
+
+    * {
+      color: #fff;
+    }
+  }
+
+  &--bg {
+    z-index: 0;
+
+    &:before {
+      z-index: -1;
+      pointer-events: none;
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: $color--light;
+
+      @include media("<tablet") {
+        content: none;
+      }
+    }
+  }
+
+  &--image {
+    z-index: -1;
+    position: absolute;
+    top: -50%;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    background-position: center;
+    background-size: cover;
+  }
+
+  &--archive {
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+  }
+}
