@@ -26,7 +26,6 @@ class Pjax {
         this.newView = null;
 
         this.initialURL = document.URL;
-        console.log(document.URL);
 
         this.init();
         this.bindUIActions(document);

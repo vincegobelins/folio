@@ -1,7 +1,8 @@
 .button {
   position: relative;
   padding: $padding--standard;
-  margin: $margin--standard auto;
+  margin: $margin--standard / 2 auto;
+  display: inline-block;
   font-size: 1.2rem;
   text-transform: uppercase;
   text-decoration: none;

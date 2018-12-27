@@ -39,7 +39,13 @@ class Detail extends View {
         super.init(content);
         let media = this.content.querySelector('.article__media');
         let texte = this.content.querySelector('.article__content');
+        let text = this.content.querySelectorAll('.article__detail p, .article__spec, .button');
         //new Parallax([media, texte], 100);
+
+        TweenMax.set(text, {opacity: 0, y:50});
+        Utils.getIntersections(text, 0, true, el => {
+            TweenMax.to(el.target, 1, {opacity:1, y:0, ease: Expo.easeInOut});
+        });
     }
 
     /**
