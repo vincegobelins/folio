@@ -10,8 +10,6 @@ import * as constant from './../../utils/constant';
  *
  * Don't forget to define new class in _config.js
  *
- * //TODO Faire une copier et créer home. Ne laisser que les console log dans cette classe.
- *
  * @author vincent
  */
 
@@ -92,8 +90,18 @@ class View {
      * Call just before removing view of the DOM
      *
      */
+
     destroy(){
         constant.DEBUG && console.log('[VIEW] destroy view of type ' + this.type);
+    }
+
+    /**
+     * Return View type
+     * @returns {string}
+     */
+
+    getType(){
+      return this.type;
     }
 }
 

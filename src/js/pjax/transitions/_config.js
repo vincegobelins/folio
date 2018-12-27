@@ -15,3 +15,16 @@ export const transitionClasses = {
     Enlarge,
     Reduce
 };
+
+export const transitions = [
+    {
+        from: 'home',
+        to: 'detail',
+        transition: transitionClasses.Enlarge
+    },
+    {
+        from: 'detail',
+        to: 'home',
+        transition: transitionClasses.Reduce
+    }
+];

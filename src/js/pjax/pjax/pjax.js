@@ -1,5 +1,5 @@
 import {viewClasses} from './../view/_config';
-import {transitionClasses} from './../transitions/_config';
+import {transitionClasses, transitions} from './../transitions/_config';
 import * as constant from './../../utils/constant';
 import Utils from './../../utils/utils';
 
@@ -78,9 +78,8 @@ class Pjax {
 
     handleClick(e){
 
-        let obj = e.currentTarget;
-        let url = obj.href;
-        let transition = obj.dataset.transition;
+        let obj = e.currentTarget.id || false;
+        let url = e.currentTarget.href;
 
         // Don't pjax anchor #
         if(!url.includes('#')) {
@@ -88,10 +87,10 @@ class Pjax {
             e.preventDefault();
 
             // Pjaxify
-            this.pjaxify(url, obj, transition);
+            this.pjaxify(url, obj);
 
             // Push state
-            this.setHistory(url);
+            this.setHistory(url, obj);
         }
     }
 
@@ -102,7 +101,7 @@ class Pjax {
         }
         console.log(e);
         if(e.state) {
-            this.pjaxify(e.state.link);
+            this.pjaxify(e.state.link, e.state.obj);
         }
         else {
             this.pjaxify(this.initialURL);
@@ -151,7 +150,7 @@ class Pjax {
      *
      */
 
-    pjaxify(url, obj, transition) {
+    pjaxify(url, obj) {
 
         this.lock().then(() => {
             return this.doRequest(url, 'GET');
@@ -175,9 +174,10 @@ class Pjax {
             this.newView.init(this.newContent);
 
             // Init Transition
+
+            let transition = this.getTransition(this.currentView.getType(), this.newView.getType());
             if(transition) {
-                let transitionType = this.capitalizeFirstLetter(transition);
-                let transitionClass = new transitionClasses[transitionType];
+                let transitionClass = new transition();
                 promises.push(transitionClass.play(this.currentContent, this.newContent, obj));
             }
 
@@ -231,10 +231,15 @@ class Pjax {
         return typeof testClass === 'function';
     }
 
-    setHistory(link) {
-        let stateObj = { link: link };
-        history.pushState(stateObj, '', link);
+    setHistory(url, obj) {
+        let stateObj = { link: url, obj: obj };
+        history.pushState(stateObj, '', url);
     }
+
+    /**
+     * Prevent actions from user
+     * @returns {Promise}
+     */
 
     lock() {
         document.body.style.overflow = 'hidden';
@@ -247,9 +252,32 @@ class Pjax {
         });
     }
 
+    /**
+     * Permit actions from user
+     */
+
     unlock() {
         document.body.style.overflow = 'auto';
         document.body.style.pointerEvents = 'auto';
+    }
+
+    /**
+     *
+     * Get transition Class if exist
+     *
+     * @param currentViewType String
+     * @param nextViewType String
+     * @returns {*} Class or null
+     */
+
+    getTransition(currentViewType, nextViewType) {
+        for(let transition of transitions) {
+            if(transition.from == currentViewType) {
+                if(transition.to == nextViewType) {
+                    return transition.transition;
+                }
+            }
+        }
     }
 }
 

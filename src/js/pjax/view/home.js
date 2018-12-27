@@ -56,7 +56,7 @@ class Home extends View {
             let splittedPart = archive.querySelectorAll('.splitted');
 
             let timeline = new TimelineMax({paused:true});
-            timeline.staggerFrom(splittedPart, 0.75, {opacity: 0, y: 100, ease: Expo.easeInOut}, 0.01);
+            timeline.staggerFrom(splittedPart, 0.5, {opacity: 0, y: 50, ease: Expo.easeInOut}, 0.01);
             archive.animation = timeline;
 
             archive.addEventListener('mouseenter', (e) => this.onMouseEnter(e));
@@ -140,12 +140,12 @@ class Home extends View {
         let archives = this.content.querySelectorAll('.archive');
 
         return new Promise(function (resolve, reject) {
-            let timeline = new TimelineMax({delay:0, onComplete: () => {
-                resolve()
-            }});
+            let timeline = new TimelineMax({delay:0});
             timeline.staggerTo('.archives .archive__img', 1.25, {y:'-101%', ease: Expo.easeInOut}, 0.1);
             timeline.staggerTo('.archives .archive__bg', 0.75, {y:'-100%', ease: Expo.easeInOut}, 0.1, '-=1');
-            timeline.staggerTo('.archives .archive', 1.25, {y:'-50%', ease: Expo.easeInOut}, 0.1, '-=1.5');
+            timeline.staggerTo('.archives .archive', 1.25, {y:'-50%', ease: Expo.easeInOut, onComplete: () => {
+                resolve();
+            }}, 0.1, '-=1.5');
         });
     }
 
