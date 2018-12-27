@@ -14,24 +14,20 @@ class Parallax {
      *
      * Constructor
      *
-     * @param itemsHTML Array HTML Elements to parallax
+     * @param items DOM Elements to parallax
+     * @param speed Optionnal - Default speed
      */
 
-    constructor(itemsHTML, speed) {
+    constructor(items, speed) {
         this.items = [];
 
-        for (let i = 0; i < itemsHTML.length; i++) {
-            let item = {
-                id : i,
-                obj: itemsHTML[i],
-                speed: itemsHTML[i].dataset.speed || speed,
-                height: itemsHTML[i].offsetHeight,
-                step: 0,
+        for (let item of items) {
+            this.items.push({
+                obj: item,
+                speed: item.dataset.speed || speed || 2,
                 pos: 0,
                 smoothPos: 0
-            }
-
-            this.items.push(item);
+            });
         }
 
         this.render();
@@ -44,24 +40,18 @@ class Parallax {
      */
 
     render() {
-        let i = 0;
-
-        Array.prototype.forEach.call(this.items, function(item) {
-            i++;
-            let scrollPosition = $(window).scrollTop();
-            let elPosition = $(item.obj).offset().top ;
-
-            // Calc pos and smooth pos
-            item.pos = (elPosition - scrollPosition - 400) * item.speed/10;
+        for (let item of this.items) {
+            console.log(item);
+            let scrollPosition = window.scrollY;
+            item.pos = - scrollPosition * item.speed;
             item.smoothPos += (item.pos - item.smoothPos) / 10;
 
-            // Apply style
             let transform = 'translate3d(' + 0 + ','+ item.smoothPos.toFixed(2) + 'px,' + 0 + ')';
             item.obj.style["transform"] = transform;
             item.obj.style["webkitTransform"] = transform;
             item.obj.style["mozTransform"] = transform;
             item.obj.style["msTransform"] = transform;
-        });
+        }
 
         window.requestAnimationFrame( this.render.bind(this) );
     }
