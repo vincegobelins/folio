@@ -5,7 +5,7 @@ class Menu {
 
     constructor(el) {
         this.el = el;
-        this.items = this.el.querySelectorAll('a[href*="#"]');
+        this.items = this.el.querySelectorAll('a');
         this.height = document.querySelector('.header').offsetHeight - 40;
         this.isFull = false;
 
@@ -21,12 +21,19 @@ class Menu {
             e.detail.action == 'open' && this.open();
             e.detail.action == 'close' && this.close();
         }, false);
+
+        window.addEventListener('resize', (e) => this.onResize(e));
     }
 
     onClick(e) {
         e.preventDefault();
-        this.goTo(e.target.getAttribute('href'));
         this.isFull && this.close();
+    }
+
+    onResize(e) {
+        if(window.innerWidth > 860) {
+            TweenLite.set(this.el, {y: '0%'});
+        }
     }
 
     goTo(id) {
@@ -59,9 +66,10 @@ class Menu {
 
     open() {
         let timeline = new TimelineMax();
-        timeline.set(this.items, {opacity:0, x: 50});
-        timeline.to(this.el, 0.5, {x: '-100%', ease:Expo.easeInOut});
-        timeline.staggerTo(this.items, 0.75, {opacity:1, x:0, ease:Back.easeOut.config(1.7)}, 0.1, '-=0.2');
+        timeline.set(this.items, {opacity:0, y: 50});
+        timeline.set(this.el, {y: '100%'});
+        timeline.to(this.el, 0.5, {y: '-100%', ease:Expo.easeInOut});
+        timeline.staggerTo(this.items, 0.75, {opacity:1, y:0, ease:Back.easeOut.config(1.7)}, 0.1, '-=0.2');
 
         document.body.style.overflow = 'hidden';
         document.body.classList.add('menu-is-open');
@@ -71,7 +79,7 @@ class Menu {
 
     close() {
         let timeline = new TimelineMax();
-        timeline.to(this.el, 0.5, {x: '100%', ease:Expo.easeInOut});
+        timeline.to(this.el, 0.5, {y: '-200%', ease:Expo.easeInOut});
 
         document.body.style.overflow = 'auto';
         document.body.classList.remove('menu-is-open');

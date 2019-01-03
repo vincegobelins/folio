@@ -19,6 +19,14 @@
   position: relative;
   text-decoration: none;
 
+  @include media("<tablet") {
+    width: 60vw;
+  }
+
+  @include media("<phone") {
+    width: 80vw;
+  }
+
   &__bg {
     position: absolute;
     top: 0;
@@ -60,11 +68,18 @@
 
   &__title {
     font-size: 8rem;
-    line-height: 8rem;
     color: $color--extra-light;
 
     .splitted {
       color: $color--extra-light;
+    }
+
+    @include media("<tablet") {
+      font-size: 6rem;
+    }
+
+    @include media("<phone") {
+      font-size: 3rem;
     }
   }
 

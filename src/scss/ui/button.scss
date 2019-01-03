@@ -8,6 +8,11 @@
   text-decoration: none;
   letter-spacing: $letter--spacing;
   font-weight: bold;
+  transition: color $duration $ease;
+
+  @include media("<tablet") {
+    padding: $padding--standard / 2;
+  }
 
   &:before {
     content: '';
@@ -17,6 +22,18 @@
     width: calc(100% - 2 * #{$padding--standard});
     height: $border--standard;
     background-color: $color--text;
-    transition: width $duration $ease;
+    transition: width $duration $ease, color $duration $ease;
+
+    @include media("<tablet") {
+      left: $padding--standard / 2;
+      width: calc(100% - #{$padding--standard});
+    }
   }
+}
+
+button {
+  outline: 0;
+  cursor: pointer;
+  background: transparent;
+  border: none;
 }

@@ -1,12 +1,20 @@
 .article {
   position: relative;
-  margin: $margin--standard 0;
+  margin-top: 3 * $margin--standard;
 
   &__title {
-    padding-top: 8rem;
+    padding: $padding--standard * 2 $padding--standard;
     color: $color--text;
     font-size: 10rem;
     text-align: center;
+
+    @include media("<tablet") {
+      font-size: 6rem;
+    }
+
+    @include media("<phone") {
+      font-size: 3rem;
+    }
   }
 
   &__wrapper__media {
@@ -32,6 +40,10 @@
 
   &__content {
     display: flex;
+
+    @include media("<phone") {
+      flex-direction: column-reverse;
+    }
   }
 
   &__aside {
@@ -40,6 +52,7 @@
   }
 
   &__detail {
+    padding: $padding--standard;
   }
 
   &__spec {

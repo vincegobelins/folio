@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 /**
  *
  * Parallax
@@ -41,7 +39,6 @@ class Parallax {
 
     render() {
         for (let item of this.items) {
-            console.log(item);
             let scrollPosition = window.scrollY;
             item.pos = - scrollPosition * item.speed;
             item.smoothPos += (item.pos - item.smoothPos) / 10;

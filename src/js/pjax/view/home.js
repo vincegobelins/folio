@@ -49,19 +49,21 @@ class Home extends View {
 
         new Scroller(this.archives, false, lastPosition);
 
-        for(let archive of this.items) {
+        if(!Utils.isMobile()) {
+            for(let archive of this.items) {
 
-            let title = archive.querySelector('.archive__title');
-            Utils.textSplitter(title);
-            let splittedPart = archive.querySelectorAll('.splitted');
+                let title = archive.querySelector('.archive__title');
+                Utils.textSplitter(title);
+                let splittedPart = archive.querySelectorAll('.splitted');
 
-            let timeline = new TimelineMax({paused:true});
-            timeline.staggerFrom(splittedPart, 0.5, {opacity: 0, y: 50, ease: Expo.easeInOut}, 0.01);
-            archive.animation = timeline;
+                let timeline = new TimelineMax({paused:true});
+                timeline.staggerFrom(splittedPart, 0.5, {opacity: 0, y: 50, ease: Expo.easeInOut}, 0.01);
+                archive.animation = timeline;
 
-            archive.addEventListener('mouseenter', (e) => this.onMouseEnter(e));
-            archive.addEventListener('mouseleave', (e) => this.onMouseLeave(e));
-            archive.addEventListener('click', (e) => this.onMouseClick(e));
+                archive.addEventListener('mouseenter', (e) => this.onMouseEnter(e));
+                archive.addEventListener('mouseleave', (e) => this.onMouseLeave(e));
+                archive.addEventListener('click', (e) => this.onMouseClick(e));
+            }
         }
     }
 

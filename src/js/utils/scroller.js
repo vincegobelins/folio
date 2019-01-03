@@ -1,3 +1,5 @@
+import Utils from './../utils/utils';
+
 /**
  *
  * Scroller
@@ -24,9 +26,12 @@ class Scroller {
         this.translation = - offset || 0;
         this.velocity = velocity || 150;
 
-        this.el.addEventListener('mousewheel', (e) => this.onMouseWheel(e));
-
-        this.render();
+        if(Utils.isMobile()) {
+            this.el.style.overflow = 'auto';
+        } else {
+            this.el.addEventListener('mousewheel', (e) => this.onMouseWheel(e));
+            this.render();
+        }
     }
 
     onMouseWheel(e){
