@@ -1,5 +1,5 @@
 //TODO : import polyfill
-
+import "@babel/polyfill";
 import $ from 'jquery';
 import 'slick-carousel';
 import 'intersection-observer';
@@ -58,7 +58,6 @@ import Pjax from './pjax/pjax/pjax';
     let cardsTitles = document.querySelectorAll('.cards__title');
     let maxHeightCardsTitles = 0;
     for(let el of cardsTitles) {
-        console.log(el.offsetHeight);
         if(el.offsetHeight > maxHeightCardsTitles){
             maxHeightCardsTitles = el.offsetHeight;
         }
@@ -117,7 +116,6 @@ function goTo(e) {
             let position = el.offsetTop + parent.offsetTop;
             let height = document.querySelector('.header').offsetHeight - 40;
             Utils.smoothScroll(position - height);
-            console.log(position);
         }
     }
 

@@ -90,7 +90,6 @@ class Home extends View {
             let el = this.archives.querySelector('[href="' + href + '"]');
             let elWidth = el.offsetWidth;
             let elPos = el.getBoundingClientRect().left;
-            console.log(elPos);
             pos = elPos + elWidth / 2 - window.innerWidth / 2;
         }
 

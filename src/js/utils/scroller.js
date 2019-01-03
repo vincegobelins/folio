@@ -20,8 +20,7 @@ class Scroller {
     constructor(el, velocity, offset) {
 
         this.el = el;
-
-        this.limit = this.el.offsetWidth - window.innerWidth;
+        this.limit = this.el.scrollWidth - window.innerWidth;
         this.position = offset || 0;
         this.translation = - offset || 0;
         this.velocity = velocity || 150;
@@ -29,7 +28,7 @@ class Scroller {
         if(Utils.isMobile()) {
             this.el.style.overflow = 'auto';
         } else {
-            this.el.addEventListener('mousewheel', (e) => this.onMouseWheel(e));
+            this.el.addEventListener('wheel', (e) => this.onMouseWheel(e));
             this.render();
         }
     }

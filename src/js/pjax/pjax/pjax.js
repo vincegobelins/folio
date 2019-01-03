@@ -98,7 +98,7 @@ class Pjax {
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
-        console.log(e);
+
         if(e.state) {
             this.pjaxify(e.state.link, e.state.obj);
         }

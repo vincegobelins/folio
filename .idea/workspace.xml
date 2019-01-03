@@ -3,16 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="efdef4c4-f1a1-4601-bd04-e97b069c6ed0" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/pjax/view/home.js" afterPath="$PROJECT_DIR$/src/js/pjax/view/home.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/ui/menu.js" afterPath="$PROJECT_DIR$/src/js/ui/menu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/utils/parallax.js" afterPath="$PROJECT_DIR$/src/js/utils/parallax.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/app.js" afterPath="$PROJECT_DIR$/src/js/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/utils/scroller.js" afterPath="$PROJECT_DIR$/src/js/utils/scroller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/utils/utils.js" afterPath="$PROJECT_DIR$/src/js/utils/utils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/scss/base/typography.scss" afterPath="$PROJECT_DIR$/src/scss/base/typography.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/scss/ui/archives.scss" afterPath="$PROJECT_DIR$/src/scss/ui/archives.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/scss/ui/article.scss" afterPath="$PROJECT_DIR$/src/scss/ui/article.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/scss/ui/button.scss" afterPath="$PROJECT_DIR$/src/scss/ui/button.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/scss/ui/header.scss" afterPath="$PROJECT_DIR$/src/scss/ui/header.scss" />
     </list>
     <ignored path="va2019.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,18 +30,8 @@
       <file leaf-file-name="parallax.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/utils/parallax.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
+            <state relative-caret-position="779">
               <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="typography.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/scss/base/typography.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="54" column="17" selection-start-line="54" selection-start-column="17" selection-end-line="54" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -83,12 +67,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="header.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/scss/ui/header.scss">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-57">
-              <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
-              <folding />
+            <state relative-caret-position="19">
+              <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
+              <folding>
+                <element signature="e#178#207#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -105,17 +91,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scroller.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="scroller.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/js/utils/scroller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state relative-caret-position="304">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="archives.scss" pinned="false" current-in-tab="true">
+      <file leaf-file-name="gulpfile.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gulpfile.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="archives.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/scss/ui/archives.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="507">
@@ -150,7 +146,6 @@
         <option value="$PROJECT_DIR$/src/js/ui/header.js" />
         <option value="$PROJECT_DIR$/src/scss/styles.scss" />
         <option value="$PROJECT_DIR$/src/scss/ui/footer.scss" />
-        <option value="$PROJECT_DIR$/src/js/app.js" />
         <option value="$PROJECT_DIR$/src/js/pjax/transitions/transition.js" />
         <option value="$PROJECT_DIR$/src/js/pjax/transitions/poster.js" />
         <option value="$PROJECT_DIR$/src/scss/ui/section.scss" />
@@ -173,10 +168,11 @@
         <option value="$PROJECT_DIR$/src/scss/ui/article.scss" />
         <option value="$PROJECT_DIR$/src/js/ui/menu.js" />
         <option value="$PROJECT_DIR$/src/js/utils/utils.js" />
-        <option value="$PROJECT_DIR$/src/js/utils/scroller.js" />
         <option value="$PROJECT_DIR$/src/scss/ui/button.scss" />
         <option value="$PROJECT_DIR$/src/js/pjax/view/home.js" />
         <option value="$PROJECT_DIR$/src/scss/ui/archives.scss" />
+        <option value="$PROJECT_DIR$/src/js/app.js" />
+        <option value="$PROJECT_DIR$/src/js/utils/scroller.js" />
       </list>
     </option>
   </component>
@@ -597,12 +593,12 @@
       <workItem from="1545733759235" duration="1402000" />
       <workItem from="1545914191462" duration="11731000" />
       <workItem from="1546005018918" duration="531000" />
-      <workItem from="1546513228192" duration="6659000" />
+      <workItem from="1546513228192" duration="9709000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133936000" />
+    <option name="totallyTimeSpent" value="136986000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -656,13 +652,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/scss/ui/footer.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/scss/ui/archives.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -895,14 +884,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="31" column="51" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="855">
@@ -995,22 +976,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/utils/parallax.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/utils/scroller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/scss/ui/button.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -1039,6 +1004,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="507">
           <caret line="80" column="26" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/utils/parallax.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="779">
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
+          <folding>
+            <element signature="e#178#207#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/utils/scroller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
