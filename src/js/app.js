@@ -1,5 +1,5 @@
-//TODO : import polyfill
-import "@babel/polyfill";
+import '@babel/polyfill';
+import './polyfill/polyfill'
 import $ from 'jquery';
 import 'slick-carousel';
 import 'intersection-observer';

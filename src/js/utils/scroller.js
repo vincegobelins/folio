@@ -23,7 +23,7 @@ class Scroller {
         this.limit = this.el.scrollWidth - window.innerWidth;
         this.position = offset || 0;
         this.translation = - offset || 0;
-        this.velocity = velocity || 150;
+        this.velocity = velocity || 75;
 
         if(Utils.isMobile()) {
             this.el.style.overflow = 'auto';
@@ -34,6 +34,7 @@ class Scroller {
     }
 
     onMouseWheel(e){
+        console.log(e);
         if(e.deltaY > 0) {
             this.increase();
         }
