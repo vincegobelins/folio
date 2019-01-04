@@ -9,11 +9,13 @@
 import Transition from './../transitions/transition';
 import Enlarge from './../transitions/enlarge';
 import Reduce from './../transitions/reduce';
+import Remove from './../transitions/remove';
 
 export const transitionClasses = {
     Transition,
     Enlarge,
-    Reduce
+    Reduce,
+    Remove
 };
 
 export const transitions = [
@@ -26,5 +28,10 @@ export const transitions = [
         from: 'detail',
         to: 'home',
         transition: transitionClasses.Reduce
+    },
+    {
+        from: 'detail',
+        to: 'page',
+        transition: transitionClasses.Remove
     }
 ];

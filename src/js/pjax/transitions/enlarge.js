@@ -35,7 +35,6 @@ class Enlarge extends Transition {
         super.play();
         return new Promise(function (resolve, reject) {
 
-            console.log(oldContent);
             // get initial position
             let obj = document.getElementById(objId);
             let pos = obj.getBoundingClientRect();
@@ -61,11 +60,11 @@ class Enlarge extends Transition {
             let bg = oldContent.querySelector('.background');
             let duplicateBg = bg.cloneNode(true);
             document.body.prepend(duplicateBg);
+            duplicateBg.style.top = '100%';
 
             // make transition
             let timeline = new TimelineMax({delay:0, onComplete: () => {
                 duplicateBg.remove();
-                //resolve()
             }});
             timeline.staggerTo(splittedPart, 0.75, {opacity: 0, y: -100, ease: Expo.easeInOut}, 0.01);
             timeline.to(duplicateObj, 1.5, {'left': xPos, 'top': yPos, ease: Expo.easeInOut}, '-=0.25');

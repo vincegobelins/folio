@@ -4,7 +4,7 @@ import Parallax from './../../utils/parallax';
 
 /**
  *
- * Class View
+ * Class Page
  * pjax/view/view
  *
  * View is inited when Pjax class find correspondance
@@ -15,7 +15,7 @@ import Parallax from './../../utils/parallax';
  * @author vincent
  */
 
-class Detail extends View {
+class Page extends View {
 
     /**
      *
@@ -25,7 +25,7 @@ class Detail extends View {
 
     constructor() {
         super();
-        this.type = 'detail';
+        this.type = 'page';
     }
 
     /**
@@ -40,7 +40,7 @@ class Detail extends View {
 
         let background = this.content.querySelector('.background');
         let article = this.content.querySelector('.article');
-        let text = this.content.querySelectorAll('.article__detail p, .article__spec, .button');
+        let text = this.content.querySelectorAll('.article__detail > *, .article__spec, .button');
         new Parallax([background]);
 
         TweenMax.set(text, {opacity: 0, y:50});
@@ -69,12 +69,20 @@ class Detail extends View {
         TweenLite.set('.splitted', {opacity: 0, y: 100});
 
         return new Promise(function (resolve, reject) {
+
+            TweenLite.set('.article .article__media', {y:'10%'});
+            TweenLite.set('.article .article__media__bg', {y:'100%'});
+            TweenLite.set('.article .article__media__img', {y:'101%'});
+
             let timeline = new TimelineLite({onComplete: () => {
                 resolve()
             }});
             timeline.staggerTo('.splitted', 0.75, {opacity: 1, y:0, ease: Expo.easeInOut}, 0.01);
             timeline.from('.article__media iframe', 1, {y:'100%', ease: Expo.easeInOut}, '-=0.75');
             timeline.from('.article__content', 1, {y:100, opacity:0, ease: Expo.easeInOut}, '-=0.75');
+            timeline.to('.article .article__media', 1.25, {y:'0%', ease: Expo.easeInOut}, '-=1');
+            timeline.to('.article .article__media__bg', 0.75, {y:'0%', ease: Expo.easeInOut}, '-=1.5');
+            timeline.to('.article .article__media__img', 1.25, {y:'0%', ease: Expo.easeInOut}, '-=1.5');
         });
     }
 
@@ -90,17 +98,17 @@ class Detail extends View {
 
     disappear() {
         super.disappear();
-
-        let wrapperMedia = this.content.querySelector('.article .article__wrapper__media');
-
         return new Promise(function (resolve, reject) {
             let timeline = new TimelineLite({delay:0});
             timeline.to('.background', 1, {'top':'-100%', ease: Expo.easeInOut});
             timeline.staggerTo('.splitted', 0.75, {opacity: 0, y:-100, ease: Expo.easeInOut}, 0.01, '-=0.5');
-            timeline.to('.article__media iframe', 1, {y:'-100%', ease: Expo.easeInOut, onComplete: () => {
-                TweenLite.set(wrapperMedia, {opacity:0, immediateRender:false});
+            timeline.to('.article__media iframe', 1, {y:'-100%', ease: Expo.easeInOut}, '-=2');
+            timeline.to('.article .article__media__img', 1.25, {y:'-101%', ease: Expo.easeInOut}, '-=1.5');
+            timeline.to('.article .article__media__bg', 0.75, {y:'-100%', ease: Expo.easeInOut}, '-=1');
+            timeline.to('.article .article__media', 1.25, {y:'-10%', ease: Expo.easeInOut, onComplete: () => {
                 resolve()
-            }}, '-=2');
+            }}, '-=1.5');
+
             //timeline.to('.article__content', 1, {y:-100, opacity:0, ease: Expo.easeInOut}, '-=1');
         });
     }
@@ -116,4 +124,4 @@ class Detail extends View {
     }
 }
 
-export default Detail;
+export default Page;

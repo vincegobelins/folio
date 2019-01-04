@@ -34,6 +34,7 @@
         padding: $padding--standard;
         font-weight: bold;
         font-size: 1.2rem;
+        font-family: $font--main;
         letter-spacing: $letter--spacing;
         text-transform: uppercase;
         text-decoration: none;
@@ -100,10 +101,15 @@
 .logo {
   text-decoration: none;
   text-transform: uppercase;
+  font-family: $font--main;
   font-size: 4rem;
   letter-spacing: $letter--spacing;
   padding: 0 2 * $padding--standard;
   transition: opacity $duration $ease, visibility $duration $ease, color $duration $ease;
+
+  * {
+    font-family: $font--main;
+  }
 
   @include media("<tablet") {
     padding: 0 $padding--standard;

@@ -9,9 +9,11 @@
 import View from './../view/view';
 import Detail from './../view/detail';
 import Home from './../view/home';
+import Page from './../view/page';
 
 export const viewClasses = {
     View,
     Detail,
-    Home
+    Home,
+    Page
 };

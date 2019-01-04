@@ -1,5 +1,5 @@
 * {
-  font-family: $font--main;
+  font-family: $font--text;
   color: $color--text;
 }
 
@@ -10,7 +10,7 @@ html {
 body {
   font-size: 1.6rem;
   letter-spacing: 1px;
-  line-height: 1.5;
+  line-height: 2;
 }
 
 ul {
@@ -50,9 +50,14 @@ li {
 }
 
 h2, h3, h4, h5, h6 {
+  font-family: $font--main;
   text-transform: uppercase;
   letter-spacing: $letter--spacing;
   line-height: 1;
+
+  * {
+    font-family: $font--main;
+  }
 }
 
 h2 {
@@ -62,6 +67,7 @@ h2 {
 
 p {
   margin-top: 0;
+  margin-bottom: $margin--standard;
 }
 
 svg {
@@ -78,4 +84,33 @@ svg {
 
 .bold {
   font-weight: bold;
+}
+
+blockquote {
+  position: relative;
+  margin: 0 0 $margin--standard;
+  padding: 0 $padding--standard $padding--standard;
+  font-size: 3rem;
+  font-style: italic;
+  font-family: $font--main;
+  line-height: 1.5;
+
+  &:before,
+  &:after {
+    position: absolute;
+    color: #d8d8d8;
+    font-size: 10rem;
+  }
+
+  &:before {
+    top: - 3 * $padding--standard;
+    left: - 2 * $padding--standard;
+    content: '«';
+  }
+
+  &:after {
+    bottom: - $padding--standard;
+    right: - $padding--standard;
+    content: '»';
+  }
 }
