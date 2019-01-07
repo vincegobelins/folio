@@ -81,7 +81,7 @@ class Pjax {
         let url = e.currentTarget.href;
 
         // Don't pjax anchor #
-        if(!url.includes('#')) {
+        if(!url.includes('#') && url != location.href) {
 
             e.preventDefault();
 
