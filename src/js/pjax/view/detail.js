@@ -38,14 +38,20 @@ class Detail extends View {
     init(content) {
         super.init(content);
 
-        let background = this.content.querySelector('.background');
-        let article = this.content.querySelector('.article');
-        let text = this.content.querySelectorAll('.article__detail p, .article__spec, .article__tools');
-        new Parallax([background]);
+        this.main = this.content.querySelector('.article__content');
+        this.mediaWrap = this.content.querySelector('.article__wrapper__media');
+        this.media = this.content.querySelector('.article__media');
+        this.mediaImg = this.content.querySelector('.article__media__img');
+        this.mediaIframe = this.content.querySelector('.article iframe');
+        this.mediaBg = this.content.querySelector('.article__media__bg');
+        this.background = this.content.querySelector('.background');
 
-        TweenMax.set(text, {opacity: 0, y:50});
+        let text = this.content.querySelectorAll('.article__detail p, .article__spec, .article__tools');
+        new Parallax([this.background]);
+
+        TweenLite.set(text, {opacity: 0, y:50});
         Utils.getIntersections(text, 0, true, el => {
-            TweenMax.to(el.target, 1, {opacity:1, y:0, ease: Expo.easeInOut});
+            TweenLite.to(el.target, 1, {opacity:1, y:0, ease: Expo.easeInOut});
         });
     }
 
@@ -66,15 +72,17 @@ class Detail extends View {
         let title = this.content.querySelector('.article__title');
         Utils.textSplitter(title);
 
-        TweenLite.set('.splitted', {opacity: 0, y: 100});
+        this.splitted = this.content.querySelectorAll('.article .article__title .splitted');
 
-        return new Promise(function (resolve, reject) {
+        TweenLite.set(this.splitted, {opacity: 0, y: 100});
+
+        return new Promise((resolve, reject) => {
             let timeline = new TimelineLite({onComplete: () => {
                 resolve()
             }});
-            timeline.staggerTo('.splitted', 0.75, {opacity: 1, y:0, ease: Expo.easeInOut}, 0.01);
-            timeline.from('.article__media iframe', 1, {y:'100%', ease: Expo.easeInOut}, '-=0.75');
-            timeline.from('.article__content', 1, {y:100, opacity:0, ease: Expo.easeInOut}, '-=0.75');
+            timeline.staggerTo(this.splitted, 0.75, {opacity: 1, y:0, ease: Expo.easeInOut}, 0.01);
+            timeline.from(this.mediaIframe, 1, {y:'100%', ease: Expo.easeInOut}, '-=0.75');
+            timeline.from(this.main, 1, {y:100, opacity:0, ease: Expo.easeInOut}, '-=0.75');
         });
     }
 
@@ -91,19 +99,14 @@ class Detail extends View {
     disappear() {
         super.disappear();
 
-        let wrapperMedia = this.content.querySelector('.article .article__wrapper__media');
-        let splitted = this.content.querySelectorAll('.article .article__title .splitted');
-        let background = this.content.querySelector('.background');
-
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
             let timeline = new TimelineLite({delay:0});
-            timeline.staggerTo(splitted, 0.75, {opacity: 0, y:-100, ease: Expo.easeInOut}, 0.01);
-            timeline.to('.article__media iframe', 1.25, {y:'-100%', ease: Expo.easeInOut}, '-=0.75');
-            timeline.to(background, 1, {'top':'-100%', ease: Expo.easeInOut, onComplete: () => {
-                TweenLite.set(wrapperMedia, {opacity:0, immediateRender:false});
+            timeline.staggerTo(this.splitted, 0.75, {opacity: 0, y:-100, ease: Expo.easeInOut}, 0.01);
+            timeline.to(this.mediaIframe, 1.25, {y:'-100%', ease: Expo.easeInOut}, '-=0.75');
+            timeline.to(this.background, 1, {'top':'-100%', ease: Expo.easeInOut, onComplete: () => {
+                TweenLite.set(this.mediaWrap, {opacity:0, immediateRender:false});
                 resolve()
             }}, '-=1.25');
-            //timeline.to('.article__content', 1, {y:-100, opacity:0, ease: Expo.easeInOut}, '-=1');
         });
     }
 

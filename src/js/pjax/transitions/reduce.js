@@ -33,14 +33,14 @@ class Reduce extends Transition {
 
     play(oldContent, newContent, obj) {
         super.play();
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
 
             let media = oldContent.querySelector('.article__wrapper__media');
 
             // get initial position
             let pos = media.getBoundingClientRect();
             let duplicateObj = media.cloneNode(true);
-            //obj.style.opacity = 0;
+            duplicateObj.querySelector('iframe').remove();
 
             // copy to the end of the body
             document.body.append(duplicateObj);
