@@ -51,7 +51,7 @@ class Page extends View {
             TweenLite.to(el.target, 1, {opacity:1, y:0, ease: Expo.easeInOut});
         });
 
-        new Parallax([this.background]);
+        TweenLite.set(this.background, {'top':'100%'});
     }
 
     /**
@@ -82,13 +82,14 @@ class Page extends View {
             TweenLite.set(this.mediaImg, {y:'101%'});
 
             let timeline = new TimelineLite({onComplete: () => {
-                resolve()
+                resolve();
+                new Parallax([this.background]);
             }});
-            timeline.staggerTo(this.splitted, 0.75, {opacity: 1, y:0, ease: Expo.easeInOut}, 0.01);
+            timeline.to(this.background, 2, {'top':'-45%', ease: Expo.easeInOut});
+            timeline.staggerTo(this.splitted, 0.75, {opacity: 1, y:0, ease: Expo.easeInOut}, 0.01, '-=1');
+            timeline.to(this.mediaImg, 1.5, {y:'0%', ease: Expo.easeInOut}, '-=1.5');
+            timeline.to(this.media, 2, {y:'0%', ease: Expo.easeOut}, '-=0.5');
             timeline.from(this.main, 1, {y:100, opacity:0, ease: Expo.easeInOut}, '-=0.75');
-            timeline.to(this.media, 1.25, {y:'0%', ease: Expo.easeInOut}, '-=1');
-            timeline.to(this.mediaBg, 0.75, {y:'0%', ease: Expo.easeInOut}, '-=1.5');
-            timeline.to(this.mediaImg, 1.25, {y:'0%', ease: Expo.easeInOut}, '-=1.5');
         });
     }
 
@@ -107,10 +108,9 @@ class Page extends View {
 
         return new Promise((resolve, reject) => {
             let timeline = new TimelineLite({delay:0});
-            timeline.to(this.background, 1, {'top':'-100%', ease: Expo.easeInOut});
-            timeline.staggerTo(this.splitted, 0.75, {opacity: 0, y:-100, ease: Expo.easeInOut}, 0.01, '-=0.5');
+            timeline.staggerTo(this.splitted, 0.75, {opacity: 0, y:-100, ease: Expo.easeInOut}, 0.01);
+            timeline.to(this.background, 2, {'top':'-100%', ease: Expo.easeInOut}, '-=1');
             timeline.to(this.mediaImg, 1.25, {y:'-101%', ease: Expo.easeInOut}, '-=1.5');
-            timeline.to(this.mediaBg, 0.75, {y:'-100%', ease: Expo.easeInOut}, '-=1');
             timeline.to(this.mediaWrap, 1.25, {y:'-10%', ease: Expo.easeInOut, onComplete: () => {
                 resolve()
             }}, '-=1.5');

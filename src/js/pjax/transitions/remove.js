@@ -40,7 +40,7 @@ class Remove extends Transition {
             // get initial position
             let pos = media.getBoundingClientRect();
             let duplicateObj = media.cloneNode(true);
-            //obj.style.opacity = 0;
+            duplicateObj.querySelector('iframe').remove();
 
             // copy to the end of the body
             document.body.append(duplicateObj);
@@ -49,11 +49,11 @@ class Remove extends Transition {
             TweenMax.set(duplicateObj, {'left': pos.left, 'top': pos.top, 'position':'fixed', opacity: 1, zIndex: -1 });
 
             // make transition
+            resolve();
             let timeline = new TimelineMax({delay:1, onComplete: () => {
-                resolve();
                 duplicateObj.remove();
             }});
-            timeline.to(duplicateObj, 1, {opacity: 0, ease: Expo.easeInOut});
+            timeline.to(duplicateObj, 2, {y: '-200%', opacity: 0, ease: Expo.easeInOut});
         });
     }
 }
