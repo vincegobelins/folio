@@ -1,6 +1,7 @@
 .article {
   position: relative;
   margin-top: 3 * $margin--standard;
+  overflow: hidden;
 
   &__title {
     padding: $padding--standard * 2 $padding--standard;
@@ -27,7 +28,6 @@
     position: relative;
     width: 100%;
     padding-top: 56%;
-    margin-bottom: $margin--standard;
     background-size: cover;
 
     iframe {
@@ -59,6 +59,7 @@
 
   &__content {
     display: flex;
+    margin-top: $margin--standard;
 
     @include media("<phone") {
       flex-direction: column-reverse;
@@ -84,6 +85,7 @@
   }
 
   &__tools {
+    overflow: hidden;
     text-align: center;
   }
 }

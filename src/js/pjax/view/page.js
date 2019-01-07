@@ -38,15 +38,20 @@ class Page extends View {
     init(content) {
         super.init(content);
 
-        let background = this.content.querySelector('.background');
-        let article = this.content.querySelector('.article');
-        let text = this.content.querySelectorAll('.article__detail > *, .article__spec, .button');
-        new Parallax([background]);
+        this.main = this.content.querySelector('.article__content');
+        this.mediaWrap = this.content.querySelector('.article__wrapper__media');
+        this.media = this.content.querySelector('.article__media');
+        this.mediaImg = this.content.querySelector('.article__media__img');
+        this.mediaBg = this.content.querySelector('.article__media__bg');
+        this.background = this.content.querySelector('.background');
 
-        TweenMax.set(text, {opacity: 0, y:50});
+        let text = this.content.querySelectorAll('.article__detail > *, .article__spec, .button');
+        TweenLite.set(text, {opacity: 0, y:50});
         Utils.getIntersections(text, 0, true, el => {
-            TweenMax.to(el.target, 1, {opacity:1, y:0, ease: Expo.easeInOut});
+            TweenLite.to(el.target, 1, {opacity:1, y:0, ease: Expo.easeInOut});
         });
+
+        new Parallax([this.background]);
     }
 
     /**
@@ -66,23 +71,24 @@ class Page extends View {
         let title = this.content.querySelector('.article__title');
         Utils.textSplitter(title);
 
-        TweenLite.set('.splitted', {opacity: 0, y: 100});
+        this.splitted = this.content.querySelectorAll('.article .article__title .splitted');
 
-        return new Promise(function (resolve, reject) {
+        TweenLite.set(this.splitted, {opacity: 0, y: 100});
 
-            TweenLite.set('.article .article__media', {y:'10%'});
-            TweenLite.set('.article .article__media__bg', {y:'100%'});
-            TweenLite.set('.article .article__media__img', {y:'101%'});
+        return new Promise((resolve, reject) => {
+
+            TweenLite.set(this.media, {y:'10%'});
+            TweenLite.set(this.mediaBg, {y:'100%'});
+            TweenLite.set(this.mediaImg, {y:'101%'});
 
             let timeline = new TimelineLite({onComplete: () => {
                 resolve()
             }});
-            timeline.staggerTo('.splitted', 0.75, {opacity: 1, y:0, ease: Expo.easeInOut}, 0.01);
-            timeline.from('.article__media iframe', 1, {y:'100%', ease: Expo.easeInOut}, '-=0.75');
-            timeline.from('.article__content', 1, {y:100, opacity:0, ease: Expo.easeInOut}, '-=0.75');
-            timeline.to('.article .article__media', 1.25, {y:'0%', ease: Expo.easeInOut}, '-=1');
-            timeline.to('.article .article__media__bg', 0.75, {y:'0%', ease: Expo.easeInOut}, '-=1.5');
-            timeline.to('.article .article__media__img', 1.25, {y:'0%', ease: Expo.easeInOut}, '-=1.5');
+            timeline.staggerTo(this.splitted, 0.75, {opacity: 1, y:0, ease: Expo.easeInOut}, 0.01);
+            timeline.from(this.main, 1, {y:100, opacity:0, ease: Expo.easeInOut}, '-=0.75');
+            timeline.to(this.media, 1.25, {y:'0%', ease: Expo.easeInOut}, '-=1');
+            timeline.to(this.mediaBg, 0.75, {y:'0%', ease: Expo.easeInOut}, '-=1.5');
+            timeline.to(this.mediaImg, 1.25, {y:'0%', ease: Expo.easeInOut}, '-=1.5');
         });
     }
 
@@ -98,18 +104,17 @@ class Page extends View {
 
     disappear() {
         super.disappear();
-        return new Promise(function (resolve, reject) {
+
+        return new Promise((resolve, reject) => {
             let timeline = new TimelineLite({delay:0});
-            timeline.to('.background', 1, {'top':'-100%', ease: Expo.easeInOut});
-            timeline.staggerTo('.splitted', 0.75, {opacity: 0, y:-100, ease: Expo.easeInOut}, 0.01, '-=0.5');
-            timeline.to('.article__media iframe', 1, {y:'-100%', ease: Expo.easeInOut}, '-=2');
-            timeline.to('.article .article__media__img', 1.25, {y:'-101%', ease: Expo.easeInOut}, '-=1.5');
-            timeline.to('.article .article__media__bg', 0.75, {y:'-100%', ease: Expo.easeInOut}, '-=1');
-            timeline.to('.article .article__media', 1.25, {y:'-10%', ease: Expo.easeInOut, onComplete: () => {
+            timeline.to(this.background, 1, {'top':'-100%', ease: Expo.easeInOut});
+            timeline.staggerTo(this.splitted, 0.75, {opacity: 0, y:-100, ease: Expo.easeInOut}, 0.01, '-=0.5');
+            timeline.to(this.mediaImg, 1.25, {y:'-101%', ease: Expo.easeInOut}, '-=1.5');
+            timeline.to(this.mediaBg, 0.75, {y:'-100%', ease: Expo.easeInOut}, '-=1');
+            timeline.to(this.mediaWrap, 1.25, {y:'-10%', ease: Expo.easeInOut, onComplete: () => {
                 resolve()
             }}, '-=1.5');
 
-            //timeline.to('.article__content', 1, {y:-100, opacity:0, ease: Expo.easeInOut}, '-=1');
         });
     }
 

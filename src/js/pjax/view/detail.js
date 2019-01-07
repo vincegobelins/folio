@@ -40,7 +40,7 @@ class Detail extends View {
 
         let background = this.content.querySelector('.background');
         let article = this.content.querySelector('.article');
-        let text = this.content.querySelectorAll('.article__detail p, .article__spec, .button');
+        let text = this.content.querySelectorAll('.article__detail p, .article__spec, .article__tools');
         new Parallax([background]);
 
         TweenMax.set(text, {opacity: 0, y:50});
@@ -92,15 +92,17 @@ class Detail extends View {
         super.disappear();
 
         let wrapperMedia = this.content.querySelector('.article .article__wrapper__media');
+        let splitted = this.content.querySelectorAll('.article .article__title .splitted');
+        let background = this.content.querySelector('.background');
 
         return new Promise(function (resolve, reject) {
             let timeline = new TimelineLite({delay:0});
-            timeline.to('.background', 1, {'top':'-100%', ease: Expo.easeInOut});
-            timeline.staggerTo('.splitted', 0.75, {opacity: 0, y:-100, ease: Expo.easeInOut}, 0.01, '-=0.5');
-            timeline.to('.article__media iframe', 1, {y:'-100%', ease: Expo.easeInOut, onComplete: () => {
+            timeline.staggerTo(splitted, 0.75, {opacity: 0, y:-100, ease: Expo.easeInOut}, 0.01);
+            timeline.to('.article__media iframe', 1.25, {y:'-100%', ease: Expo.easeInOut}, '-=0.75');
+            timeline.to(background, 1, {'top':'-100%', ease: Expo.easeInOut, onComplete: () => {
                 TweenLite.set(wrapperMedia, {opacity:0, immediateRender:false});
                 resolve()
-            }}, '-=2');
+            }}, '-=1.25');
             //timeline.to('.article__content', 1, {y:-100, opacity:0, ease: Expo.easeInOut}, '-=1');
         });
     }
