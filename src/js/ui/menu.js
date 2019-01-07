@@ -28,6 +28,13 @@ class Menu {
     onClick(e) {
         e.preventDefault();
         this.isFull && this.close();
+
+        for(let item of this.items) {
+            item.classList.remove('active');
+        }
+
+        e.target.classList.add('active');
+        console.log(e.target);
     }
 
     onResize(e) {
