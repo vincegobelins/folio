@@ -10,8 +10,12 @@ class Header {
 
         this.bindUIActions();
 
-        !Utils.isMobile() && window.addEventListener('scroll', (e) => this.handleScroll(e));
+        if(!Utils.isMobile()){
+            window.addEventListener('scroll', (e) => this.handleScroll(e));
 
+            TweenLite.set('.logo, .header-menu__link', {y:-100, opacity: 0});
+            this.show();
+        }
     }
 
     bindUIActions() {
@@ -41,17 +45,25 @@ class Header {
 
         // Show menu if scroll top
         if(!this.isDisplayed && !direction) {
-            TweenMax.staggerTo('.logo, .header-menu__link', 0.75, {opacity:1, y:0, ease: Expo.easeInOut}, 0.05);
-            this.isDisplayed = true;
+            this.show();
         }
 
         // Hide menu if scroll down
         else if ( pos > 20 && this.isDisplayed && direction ) {
-            TweenMax.staggerTo('.logo, .header-menu__link', 0.75, {opacity:0, y:-100, ease: Expo.easeInOut}, 0.05);
-            this.isDisplayed = false;
+            this.hide();
         }
 
         this.prevPos = pos;
+    }
+    
+    show(){
+        TweenMax.staggerTo('.logo, .header-menu__link', 0.75, {opacity:1, y:0, ease: Expo.easeInOut}, 0.05);
+        this.isDisplayed = true;
+    }
+    
+    hide(){
+        TweenMax.staggerTo('.logo, .header-menu__link', 0.75, {opacity:0, y:-100, ease: Expo.easeInOut}, 0.05);
+        this.isDisplayed = false;
     }
 }
 

@@ -109,11 +109,11 @@ class Page extends View {
         return new Promise((resolve, reject) => {
             let timeline = new TimelineLite({delay:0});
             timeline.staggerTo(this.splitted, 0.75, {opacity: 0, y:-100, ease: Expo.easeInOut}, 0.01);
-            timeline.to(this.background, 2, {'top':'-100%', ease: Expo.easeInOut}, '-=1');
+            timeline.to(this.background, 2, {'top':'-100%', ease: Expo.easeInOut}, '-=1.25');
             timeline.to(this.mediaImg, 1.25, {y:'-101%', ease: Expo.easeInOut}, '-=1.5');
             timeline.to(this.mediaWrap, 1.25, {y:'-10%', ease: Expo.easeInOut, onComplete: () => {
                 resolve()
-            }}, '-=1.5');
+            }}, '-=1');
 
         });
     }
