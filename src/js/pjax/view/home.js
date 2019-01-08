@@ -45,6 +45,8 @@ class Home extends View {
 
         this.archives = this.content.querySelector('.archives');
         this.items = this.archives.querySelectorAll('.archive');
+        this.itemsBg = this.archives.querySelectorAll('.archive__bg');
+        this.itemsImg = this.archives.querySelectorAll('.archive__img');
         let lastPosition = this.getLastPosition();
 
         new Scroller(this.archives, false, lastPosition);
@@ -67,36 +69,6 @@ class Home extends View {
         }
     }
 
-    onMouseEnter(e){
-        e.target.animation.play();
-    }
-
-    onMouseLeave(e){
-        e.target.animation.reverse();
-    }
-
-    onMouseClick(e){
-        localStorage.setItem('lastItemClicked', e.currentTarget.getAttribute('href'));
-
-        e.currentTarget.animation.reverse();
-    }
-
-    getLastPosition() {
-        let pos = 0;
-
-        let href = localStorage.getItem('lastItemClicked');
-
-        if(href != null) {
-            let el = this.archives.querySelector('[href="' + href + '"]');
-            let elWidth = el.offsetWidth;
-            let elPos = el.getBoundingClientRect().left;
-            pos = elPos + elWidth / 2 - window.innerWidth / 2;
-        }
-
-
-        return pos;
-    }
-
     /**
      *
      * Appear
@@ -110,19 +82,18 @@ class Home extends View {
 
     appear() {
         super.appear();
-        let archives = this.content.querySelectorAll('.archive');
 
-        return new Promise(function (resolve, reject) {
-            TweenMax.set('.archives .archive', {y:'50%'});
-            TweenMax.set('.archives .archive__bg', {y:'100%'});
-            TweenMax.set('.archives .archive__img', {y:'101%'});
+        return new Promise((resolve, reject) => {
+            TweenMax.set(this.items, {y:'50%'});
+            TweenMax.set(this.itemsBg, {y:'100%'});
+            TweenMax.set(this.itemsImg, {y:'101%'});
 
             let timeline = new TimelineMax({delay:0, onComplete: () => {
                 resolve()
             }});
-            timeline.staggerTo('.archives .archive', 1.25, {y:'0%', ease: Expo.easeInOut}, 0.1);
-            timeline.staggerTo('.archives .archive__bg', 0.75, {y:'0%', ease: Expo.easeInOut}, 0.1, '-=1.5');
-            timeline.staggerTo('.archives .archive__img', 1.25, {y:'0%', ease: Expo.easeInOut}, 0.1, '-=1.5');
+            timeline.staggerTo(this.items, 1.25, {y:'0%', ease: Expo.easeInOut}, 0.1);
+            timeline.staggerTo(this.itemsBg, 0.75, {y:'0%', ease: Expo.easeInOut}, 0.1, '-=1.5');
+            timeline.staggerTo(this.itemsImg, 1.25, {y:'0%', ease: Expo.easeInOut}, 0.1, '-=1.5');
         });
     }
 
@@ -138,13 +109,12 @@ class Home extends View {
 
     disappear() {
         super.disappear();
-        let archives = this.content.querySelectorAll('.archive');
 
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
             let timeline = new TimelineMax({delay:0});
-            timeline.staggerTo('.archives .archive__img', 1.25, {y:'-101%', ease: Expo.easeInOut}, 0.1);
-            timeline.staggerTo('.archives .archive__bg', 0.75, {y:'-100%', ease: Expo.easeInOut}, 0.1, '-=1');
-            timeline.staggerTo('.archives .archive', 1.25, {y:'-50%', ease: Expo.easeInOut, onComplete: () => {
+            timeline.staggerTo(this.itemsImg, 1.25, {y:'-101%', ease: Expo.easeInOut}, 0.1);
+            timeline.staggerTo(this.itemsBg, 0.75, {y:'-100%', ease: Expo.easeInOut}, 0.1, '-=1');
+            timeline.staggerTo(this.items, 1.25, {y:'-50%', ease: Expo.easeInOut, onComplete: () => {
                 resolve();
             }}, 0.1, '-=1.5');
         });
@@ -158,6 +128,55 @@ class Home extends View {
      */
     destroy(){
         super.destroy();
+    }
+
+    /**
+     * Mouse enter on item
+     * @param e Event
+     */
+
+    onMouseEnter(e){
+        e.target.animation.play();
+    }
+
+    /**
+     * Mouse leave on item
+     * @param e Event
+     */
+
+    onMouseLeave(e){
+        e.target.animation.reverse();
+    }
+
+    /**
+     * Mouse click on item
+     * @param e Event
+     */
+
+    onMouseClick(e){
+        localStorage.setItem('lastItemClicked', e.currentTarget.getAttribute('href'));
+
+        e.currentTarget.animation.reverse();
+    }
+
+    /**
+     * Get the position of last item clicked
+     */
+
+    getLastPosition() {
+        let pos = 0;
+
+        let href = localStorage.getItem('lastItemClicked');
+
+        if(href != null) {
+            let el = this.archives.querySelector('[href="' + href + '"]');
+            let elWidth = el.offsetWidth;
+            let elPos = el.getBoundingClientRect().left;
+            pos = elPos + elWidth / 2 - window.innerWidth / 2;
+        }
+
+
+        return pos;
     }
 }
 

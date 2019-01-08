@@ -25,6 +25,7 @@ class Scroller {
         this.translation = - offset || 0;
         this.velocity = velocity || 75;
 
+        // Disable on mobile device
         if(Utils.isMobile()) {
             this.el.style.overflow = 'auto';
         } else {
@@ -33,8 +34,12 @@ class Scroller {
         }
     }
 
+    /**
+     * Handle mouse wheel event
+     * @param e Event
+     */
+
     onMouseWheel(e){
-        console.log(e);
         if(e.deltaY > 0) {
             this.increase();
         }
@@ -42,6 +47,10 @@ class Scroller {
             this.decrease();
         }
     }
+
+    /**
+     * Increase the position of the scroll
+     */
 
     increase() {
         if(this.position + this.velocity > this.limit) {
@@ -51,6 +60,10 @@ class Scroller {
             this.position += this.velocity;
         }
     }
+
+    /**
+     * Decrease the position of the scroll
+     */
 
     decrease() {
         if(this.position - this.velocity < 0) {

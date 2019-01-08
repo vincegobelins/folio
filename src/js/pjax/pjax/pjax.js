@@ -26,6 +26,7 @@ class Pjax {
         this.newView = null;
 
         this.initialURL = document.URL;
+        this.isLocked = false;
 
         this.init();
         this.bindUIActions(document);
@@ -99,15 +100,15 @@ class Pjax {
             history.scrollRestoration = 'manual';
         }
 
-        if(e.state) {
+        if (this.isLocked == true) {
+            window.location.replace(e.state.link);
+        }
+        else if(e.state) {
             this.pjaxify(e.state.link, e.state.obj);
         }
         else {
             this.pjaxify(this.initialURL);
         }
-
-
-        //constant.DEBUG && console.log('[PJAX] Navigate to : ' + e.state.url);
     }
 
     /**
@@ -241,6 +242,8 @@ class Pjax {
      */
 
     lock() {
+        this.isLocked = true;
+
         document.body.style.overflow = 'hidden';
         document.body.style.pointerEvents = 'none';
 
@@ -256,6 +259,8 @@ class Pjax {
      */
 
     unlock() {
+        this.isLocked = false;
+
         document.body.style.overflow = 'auto';
         document.body.style.pointerEvents = 'auto';
     }
