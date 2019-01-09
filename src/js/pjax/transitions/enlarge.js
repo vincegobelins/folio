@@ -56,21 +56,14 @@ class Enlarge extends Transition {
             let xPos = nextPos.left + nextObj.offsetWidth / 2 - duplicateObj.offsetWidth / 2 - 20;
             let yPos = nextPos.top + nextObj.offsetHeight / 2 - duplicateObj.offsetHeight / 2 - 20;
 
-            // background
-            let bg = oldContent.querySelector('.background');
-            let duplicateBg = bg.cloneNode(true);
-            document.body.prepend(duplicateBg);
-            duplicateBg.style.top = '100%';
-
             // make transition
-            let timeline = new TimelineMax({delay:0, onComplete: () => {
-                duplicateBg.remove();
-            }});
+            let timeline = new TimelineMax();
             timeline.staggerTo(splittedPart, 0.75, {opacity: 0, y: -100, ease: Expo.easeInOut}, 0.01);
             timeline.to(duplicateObj, 1.5, {'left': xPos, 'top': yPos, ease: Expo.easeInOut}, '-=0.25');
-            timeline.to(duplicateObj, 0.75, {scale:   scale, ease: Expo.easeInOut}, '-=0.5');
-            timeline.to(duplicateBg, 1, {top: '0%', ease: Expo.easeIn, onComplete: () => {resolve(); duplicateObj.remove();} }, '-=1');
-            timeline.to(duplicateBg, 1, {top: '-45%', ease: Expo.easeOut});
+            timeline.to(duplicateObj, 0.75, {scale:   scale, ease: Expo.easeInOut, onComplete: () => {
+                resolve();
+                duplicateObj.remove();}
+            }, '-=0.5');
         });
     }
 }

@@ -23,6 +23,8 @@ class View {
 
     constructor() {
         this.type = 'view';
+        this.prevType = null;
+        this.nextType = null;
         this.content = null;
     }
 
@@ -102,6 +104,22 @@ class View {
 
     getType(){
       return this.type;
+    }
+
+    getPrevType(){
+        return this.prevType;
+    }
+
+    getNextType() {
+        return this.nextType;
+    }
+
+    setPrevType(type) {
+        this.prevType = type;
+    }
+
+    setNextType(type) {
+        this.nextType = type;
     }
 }
 

@@ -29,9 +29,9 @@ export const transitions = [
         to: 'home',
         transition: transitionClasses.Reduce
     },
-    {
+    /*{
         from: 'detail',
         to: 'page',
         transition: transitionClasses.Remove
-    }
+    }*/
 ];

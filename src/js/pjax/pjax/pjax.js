@@ -173,6 +173,10 @@ class Pjax {
             this.newView = new viewClasses[newViewType];
             this.newView.init(this.newContent);
 
+            // Set info
+            this.newView.setPrevType(this.currentView.getType());
+            this.currentView.setNextType(this.newView.getType());
+
             // Init Transition
 
             let transition = this.getTransition(this.currentView.getType(), this.newView.getType());

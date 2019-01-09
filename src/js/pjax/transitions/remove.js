@@ -49,11 +49,13 @@ class Remove extends Transition {
             TweenMax.set(duplicateObj, {'left': pos.left, 'top': pos.top, 'position':'fixed', opacity: 1, zIndex: -1 });
 
             // make transition
-            resolve();
+
+
             let timeline = new TimelineMax({delay:1, onComplete: () => {
                 duplicateObj.remove();
+                resolve();
             }});
-            timeline.to(duplicateObj, 2, {y: '-200%', opacity: 0, ease: Expo.easeInOut});
+            timeline.to(duplicateObj, 1, {y: '-30%', opacity: 0, ease: Expo.easeInOut});
         });
     }
 }

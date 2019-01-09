@@ -61,7 +61,7 @@ class Reduce extends Transition {
             // make transition
             resolve();
 
-            let timeline = new TimelineMax({delay:1, onComplete: () => {
+            let timeline = new TimelineMax({delay:1.75, onComplete: () => {
                 TweenLite.set(nextObj, {opacity: 1, immediateRender:false });
                 duplicateObj.remove();
             }});
