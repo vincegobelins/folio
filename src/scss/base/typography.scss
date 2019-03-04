@@ -53,7 +53,6 @@ h2, h3, h4, h5, h6 {
   font-family: $font--main;
   text-transform: uppercase;
   letter-spacing: $letter--spacing;
-  line-height: 1;
 
   * {
     font-family: $font--main;
@@ -89,28 +88,74 @@ svg {
 blockquote {
   position: relative;
   margin: 0 0 $margin--standard;
-  padding: 0 $padding--standard $padding--standard;
-  font-size: 3rem;
+  padding: 0 $padding--standard * 3 $padding--standard;
+  font-size: 2.5rem;
   font-style: italic;
-  font-family: $font--main;
+  font-weight: 600;
+  font-family: $font--special;
   line-height: 1.5;
+
+  @include media("<phone") {
+    padding: 0 0 $padding--standard;
+  }
 
   &:before,
   &:after {
     position: absolute;
     color: #d8d8d8;
     font-size: 10rem;
+    font-weight: normal;
+    font-style: normal;
+
+    @include media("<phone") {
+      display: none;
+    }
   }
 
   &:before {
-    top: - 3 * $padding--standard;
-    left: - 2 * $padding--standard;
-    content: '«';
+    top: - 2 * $padding--standard;
+    left: 0;
+    content: '“';
   }
 
   &:after {
-    bottom: - $padding--standard;
-    right: - $padding--standard;
-    content: '»';
+    bottom: - 3 * $padding--standard;
+    right: 0;
+    content: '”';
+  }
+}
+
+a {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background-color: $color--main;
+
+  }
+
+  &:after {
+    width: 0;
+    left: 0;
+  }
+
+  &:hover {
+    &:before {
+      width: 0;
+      transition: width $duration $ease;
+    }
+
+    &:after {
+      width: 100%;
+      transition: width $duration $ease $duration;
+    }
   }
 }

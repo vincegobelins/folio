@@ -5,10 +5,9 @@
   "main": "gulpfile.js",
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
+    "custom-event-polyfill": "^1.0.6",
     "gsap": "^1.20.4",
     "intersection-observer": "^0.5.1",
-    "jquery": "^3.3.1",
-    "slick-carousel": "^1.8.1",
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
@@ -18,9 +17,11 @@
     "browserify": "^13.0.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
+    "gulp-clean-css": "^4.0.0",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-svg-sprite": "^1.4.0",
+    "gulp-uglify": "^3.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },

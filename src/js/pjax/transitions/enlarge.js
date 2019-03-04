@@ -57,13 +57,11 @@ class Enlarge extends Transition {
             let yPos = nextPos.top + nextObj.offsetHeight / 2 - duplicateObj.offsetHeight / 2 - 20;
 
             // make transition
-            let timeline = new TimelineMax();
-            timeline.staggerTo(splittedPart, 0.75, {opacity: 0, y: -100, ease: Expo.easeInOut}, 0.01);
-            timeline.to(duplicateObj, 1.5, {'left': xPos, 'top': yPos, ease: Expo.easeInOut}, '-=0.25');
-            timeline.to(duplicateObj, 0.75, {scale:   scale, ease: Expo.easeInOut, onComplete: () => {
+            let timeline = new TimelineMax({delay:0.5});
+            //timeline.staggerTo(splittedPart, 0.75, {opacity: 0, y: -100, ease: Expo.easeInOut}, 0.01);
+            timeline.to(duplicateObj, 1.25, {scale: scale, 'left': xPos, 'top': yPos, ease: Expo.easeInOut, onComplete: () => {
                 resolve();
-                duplicateObj.remove();}
-            }, '-=0.5');
+                duplicateObj.remove();}});
         });
     }
 }

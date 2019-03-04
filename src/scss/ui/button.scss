@@ -15,19 +15,37 @@
     padding: $padding--standard / 2;
   }
 
-  &:before {
+  &:before,
+  &:after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: $padding--standard;
+    right: $padding--standard;
     width: calc(100% - 2 * #{$padding--standard});
     height: $border--standard;
-    background-color: $color--text;
-    transition: width $duration $ease, color $duration $ease;
+    bottom: 0;
+
+    @include media("<tablet") {
+      right: $padding--standard / 2;
+      width: calc(100% - #{$padding--standard});
+    }
+  }
+
+  &:after {
+    left: $padding--standard;
+    width: 0;
 
     @include media("<tablet") {
       left: $padding--standard / 2;
-      width: calc(100% - #{$padding--standard});
+    }
+  }
+
+  &:hover {
+    &:after {
+      width: calc(100% - 2 * #{$padding--standard});
+
+      @include media("<tablet") {
+        width: calc(100% - #{$padding--standard});
+      }
     }
   }
 }

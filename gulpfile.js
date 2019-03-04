@@ -7,10 +7,11 @@ var browserify = require('browserify'),
     buffer = require('vinyl-buffer'),
     browserSync = require('browser-sync');
     svgSprite = require('gulp-svg-sprite');
+    uglify = require('gulp-uglify');
+    cleanCSS = require('gulp-clean-css');
 
 /* pathConfig*/
 var entryPoint = './src/js/app.js',
-    entryBoPoint = './src/js/appBo.js',
     browserDir = './',
     entrySassPath = './src/scss/styles.scss',
     sassWatchPath = './src/scss/**/*.scss',
@@ -27,18 +28,7 @@ gulp.task('js', function () {
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./dist/'))
-        .pipe(browserSync.reload({stream: true}));
-});
-
-gulp.task('js-bo', function () {
-    return browserify(entryBoPoint, {debug: true, extensions: ['es6']})
-        .transform("babelify", {presets: ["es2015"]})
-        .bundle()
-        .pipe(source('scriptsBo.js'))
-        .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(sourcemaps.write())
+        .pipe(uglify())
         .pipe(gulp.dest('./dist/'))
         .pipe(browserSync.reload({stream: true}));
 });
@@ -59,12 +49,13 @@ gulp.task('sass', function () {
             browsers: ['last 2 versions']
         }))
         .pipe(sourcemaps.write())
+        .pipe(cleanCSS())
         .pipe(gulp.dest('./dist'))
         .pipe(browserSync.reload({stream: true}));
 });
 
 gulp.task('watch', function () {
-    gulp.watch(jsWatchPath, ['js', 'js-bo']);
+    gulp.watch(jsWatchPath, ['js']);
     gulp.watch(sassWatchPath, ['sass']);
     gulp.watch(svgWatchPath, ['compress-svg']);
     gulp.watch(htmlWatchPath, function () {

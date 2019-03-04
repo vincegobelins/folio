@@ -23,11 +23,12 @@ class Scroller {
         this.limit = this.el.scrollWidth - window.innerWidth;
         this.position = offset || 0;
         this.translation = - offset || 0;
-        this.velocity = velocity || 75;
+        this.velocity = velocity || 0.5;
 
         // Disable on mobile device
         if(Utils.isMobile()) {
             this.el.style.overflow = 'auto';
+            this.el.scrollLeft = this.position;
         } else {
             this.el.addEventListener('wheel', (e) => this.onMouseWheel(e));
             this.render();
@@ -40,11 +41,14 @@ class Scroller {
      */
 
     onMouseWheel(e){
+        e.preventDefault();
+        let offset = e.deltaMode ? 100 * e.deltaY : e.deltaY;
+
         if(e.deltaY > 0) {
-            this.increase();
+            this.increase(offset);
         }
         else {
-            this.decrease();
+            this.decrease(offset);
         }
     }
 
@@ -52,12 +56,12 @@ class Scroller {
      * Increase the position of the scroll
      */
 
-    increase() {
+    increase(delta) {
         if(this.position + this.velocity > this.limit) {
             this.position = this.limit;
         }
         else {
-            this.position += this.velocity;
+            this.position += this.velocity * delta;
         }
     }
 
@@ -65,12 +69,12 @@ class Scroller {
      * Decrease the position of the scroll
      */
 
-    decrease() {
+    decrease(delta) {
         if(this.position - this.velocity < 0) {
             this.position = 0;
         }
         else {
-            this.position -= this.velocity;
+            this.position += this.velocity * delta;
         }
     }
 

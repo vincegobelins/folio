@@ -2,6 +2,7 @@ import {viewClasses} from './../view/_config';
 import {transitionClasses, transitions} from './../transitions/_config';
 import * as constant from './../../utils/constant';
 import Utils from './../../utils/utils';
+import Ring from './../../utils/ring';
 
 
 /**
@@ -15,22 +16,27 @@ import Utils from './../../utils/utils';
 class Pjax {
 
     /**
-     *
      * Constructor
      *
-     * @param itemsHTML Array HTML Elements to parallax
+     * @param cb Callback with percentage of progress
      */
 
-    constructor() {
+    constructor(cb) {
         this.currentView = null;
         this.newView = null;
 
         this.initialURL = document.URL;
         this.isLocked = false;
+        this.ring = new Ring();
 
         this.init();
         this.bindUIActions(document);
         this.bindClientAction();
+
+        Utils.getLoader((percentage) => {
+            cb && cb(percentage);
+            percentage == 100 && setTimeout(() => this.currentView.appear(), 1000);
+        });
     }
 
     /**
@@ -46,7 +52,6 @@ class Pjax {
 
         this.currentView = new viewClasses[currentViewType];
         this.currentView.init(this.currentContent);
-        this.currentView.appear();
     }
 
     /**
@@ -82,7 +87,7 @@ class Pjax {
         let url = e.currentTarget.href;
 
         // Don't pjax anchor #
-        if(!url.includes('#') && url != location.href) {
+        if(!url.includes('#') && url != location.href && !e.currentTarget.classList.contains('no-pjax')) {
 
             e.preventDefault();
 
@@ -90,7 +95,11 @@ class Pjax {
             this.pjaxify(url, obj);
 
             // Push state
-            this.setHistory(url, obj);
+            this.setHistory(url, obj); 
+        }
+
+        if(url == location.href) {
+            e.preventDefault();
         }
     }
 
@@ -151,6 +160,10 @@ class Pjax {
      */
 
     pjaxify(url, obj) {
+
+        // Emit event
+        let event = new CustomEvent('pagechange', { 'detail': url });
+        window.dispatchEvent(event);
 
         this.lock().then(() => {
             return this.doRequest(url, 'GET');
@@ -248,11 +261,13 @@ class Pjax {
     lock() {
         this.isLocked = true;
 
+        this.ring.show();
+
         document.body.style.overflow = 'hidden';
         document.body.style.pointerEvents = 'none';
 
         return new Promise(function (resolve, reject) {
-            Utils.smoothScroll(0, 500, false, () => {
+            Utils.smoothScroll(0, 500, undefined, () => {
                 resolve();
             });
         });
@@ -264,6 +279,8 @@ class Pjax {
 
     unlock() {
         this.isLocked = false;
+
+        this.ring.hide();
 
         document.body.style.overflow = 'auto';
         document.body.style.pointerEvents = 'auto';

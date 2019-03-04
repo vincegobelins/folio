@@ -40,7 +40,8 @@ class Remove extends Transition {
             // get initial position
             let pos = media.getBoundingClientRect();
             let duplicateObj = media.cloneNode(true);
-            duplicateObj.querySelector('iframe').remove();
+            let iframe = duplicateObj.querySelector('iframe');
+            iframe && iframe.remove();
 
             // copy to the end of the body
             document.body.append(duplicateObj);

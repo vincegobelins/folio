@@ -28,4 +28,8 @@
   &--show {
     top: -45%;
   }
+
+  .is-mobile & {
+    display: none;
+  }
 }

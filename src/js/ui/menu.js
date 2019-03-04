@@ -9,32 +9,26 @@ class Menu {
         this.height = document.querySelector('.header').offsetHeight - 40;
         this.isFull = false;
 
+        this.update(window.location.href);
         this.bindUIActions();
     }
 
     bindUIActions() {
-        for(let item of this.items) {
-            item.addEventListener('click', (e) => this.onClick(e));
-        }
-
         document.addEventListener('menu', (e) => {
             e.detail.action == 'open' && this.open();
             e.detail.action == 'close' && this.close();
         }, false);
 
+        window.addEventListener('pagechange', (e) => this.onPageChange(e));
+
         window.addEventListener('resize', (e) => this.onResize(e));
     }
 
-    onClick(e) {
+    onPageChange(e) {
         e.preventDefault();
         this.isFull && this.close();
 
-        for(let item of this.items) {
-            item.classList.remove('active');
-        }
-
-        e.target.classList.add('active');
-        console.log(e.target);
+        this.update(e.detail);
     }
 
     onResize(e) {
@@ -43,31 +37,14 @@ class Menu {
         }
     }
 
-    goTo(id) {
-
-        let el = document.querySelector(id);
-
-        if(el) {
-            let parent = el.offsetParent;
-            let position = el.offsetTop + parent.offsetTop;
-            Utils.smoothScroll(position - this.height);
-        }
-    }
-
-    setActive(id) {
-        if(id) {
-            let link = document.querySelector('a[href="#' + id + '"]');
-
-            if(link) {
-                    this.removeActive();
-                link.classList.add('active');
-            }
-        }
-    }
-
-    removeActive() {
+    update(url) {
         for(let item of this.items) {
-            item.classList.remove('active');
+            if(item.href == url) {
+                item.classList.add('active');
+            }
+            else {
+                item.classList.remove('active');
+            }
         }
     }
 

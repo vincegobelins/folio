@@ -45,10 +45,15 @@ class Page extends View {
         this.mediaImg = this.content.querySelector('.article__media__img');
         this.background = this.content.querySelector('.background');
 
-        let text = this.content.querySelectorAll('.article__detail > *, .article__spec, .button');
-        TweenLite.set(text, {opacity: 0, y:50});
-        Utils.getIntersections(text, 0, true, el => {
-            TweenLite.to(el.target, 1, {opacity:1, y:0, ease: Expo.easeInOut});
+        let title = this.content.querySelector('.article__title');
+        Utils.textSplitter(title);
+
+        this.text = this.content.querySelectorAll('.article__detail > *, .article__spec, .button');
+        TweenLite.set(this.text, {opacity: 0, y:50});
+        Utils.getIntersections(this.text, 0, true, undefined, (el, isIntersecting) => {
+            if(isIntersecting) {
+                TweenLite.to(el.target, 1, {opacity:1, y:0, ease: Expo.easeInOut});
+            }
         });
 
         TweenLite.set(this.background, {'top':'100%'});
@@ -68,20 +73,17 @@ class Page extends View {
     appear() {
         super.appear();
 
-        let title = this.content.querySelector('.article__title');
-        Utils.textSplitter(title);
-
         this.splitted = this.content.querySelectorAll('.article .article__title .splitted');
 
         return new Promise((resolve, reject) => {
 
-            let timeline = new TimelineLite({onComplete: () => {
-                resolve();
-                new Parallax([this.background]);
-            }});
+            let timeline = new TimelineLite();
 
             timeline.to(this.background, 3, {'top':'-45%', ease: Expo.easeOut});
-            timeline.staggerFrom(this.splitted, 0.75, {opacity: 0, y: 100, ease: Expo.easeInOut}, 0.01, '-=3');
+            timeline.staggerFrom(this.splitted, 0.75, {opacity: 0, y: 100, ease: Expo.easeInOut}, 0.01, '-=3', () => {
+                resolve();
+                !Utils.isMobile() && new Parallax([this.background]);
+            });
             timeline.from(this.media, 2, {y:'30%', opacity: 0, ease: Expo.easeInOut}, '-=3.25');
             this.mediaImg && timeline.from(this.mediaImg, 1.5, {opacity: '0', ease: Expo.easeInOut}, '-=3');
             this.mediaIframe && timeline.from(this.mediaIframe, 1.5, {opacity: '0', ease: Expo.easeInOut}, '-=2');
@@ -104,7 +106,8 @@ class Page extends View {
 
         return new Promise((resolve, reject) => {
             let timeline = new TimelineLite({delay:0});
-            timeline.staggerTo(this.splitted, 0.75, {opacity: 0, y:-100, ease: Expo.easeInOut}, 0.01);
+            timeline.to(this.text, 0.25, {opacity: 0, ease: Expo.easeInOut});
+            timeline.staggerTo(this.splitted, 0.75, {opacity: 0, y:-100, ease: Expo.easeInOut}, 0.01, '-=0.25');
             timeline.to(this.background, 2, {'top':'-100%', ease: Expo.easeInOut}, '-=1.25');
             timeline.to(this.media, 1.5, {y:'-50%', opacity: 0, ease: Expo.easeIn, onComplete: () => {
                 resolve()

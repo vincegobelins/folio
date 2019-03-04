@@ -4,17 +4,23 @@
   overflow: hidden;
 
   &__title {
-    padding: $padding--standard * 2 $padding--standard;
+    padding: $padding--standard * 4 $padding--standard;
     color: $color--text;
     font-size: 10rem;
     text-align: center;
+    line-height: 1;
 
     @include media("<tablet") {
+      padding: $padding--standard * 2 $padding--standard;
       font-size: 6rem;
     }
 
     @include media("<phone") {
       font-size: 3rem;
+    }
+
+    .splitted {
+      font-family: $font--special;
     }
   }
 
@@ -24,6 +30,7 @@
   }
 
   &__media {
+    z-index: 0;
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -68,6 +75,8 @@
 
   &__detail {
     padding: $padding--standard;
+    //flex: 1 0 auto;
+    // Not working on IE11
   }
 
   &__spec {
@@ -77,6 +86,10 @@
 
     h3 {
       font-size: 1.2rem;
+
+      &:first-child {
+        padding-top: 0.5rem;
+      }
     }
 
     p, h3 {
@@ -86,6 +99,7 @@
 
   &__tools {
     overflow: hidden;
+    padding: $padding--standard * 2;
     text-align: center;
   }
 }

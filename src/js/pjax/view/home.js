@@ -49,23 +49,21 @@ class Home extends View {
         this.itemsImg = this.archives.querySelectorAll('.archive__img');
         let lastPosition = this.getLastPosition();
 
+        this.activeItems = [];
+
         new Scroller(this.archives, false, lastPosition);
 
-        if(!Utils.isMobile()) {
-            for(let archive of this.items) {
+        for (let archive of this.items) {
 
-                let title = archive.querySelector('.archive__title');
-                Utils.textSplitter(title);
-                let splittedPart = archive.querySelectorAll('.splitted');
+            let title = archive.querySelector('.archive__title');
+            let overlay = archive.querySelector('.archive__overlay');
+            Utils.textSplitter(title);
+            let splittedPart = archive.querySelectorAll('.splitted');
 
-                let timeline = new TimelineMax({paused:true});
-                timeline.staggerFrom(splittedPart, 0.5, {opacity: 0, y: 50, ease: Expo.easeInOut}, 0.01);
-                archive.animation = timeline;
-
-                archive.addEventListener('mouseenter', (e) => this.onMouseEnter(e));
-                archive.addEventListener('mouseleave', (e) => this.onMouseLeave(e));
-                archive.addEventListener('click', (e) => this.onMouseClick(e));
-            }
+            let timeline = new TimelineMax({paused: true});
+            timeline.to(overlay, 0.15, {opacity: 1, ease: Expo.easeInOut});
+            timeline.staggerFrom(splittedPart, 0.5, {opacity: 0, y: 50, ease: Expo.easeInOut}, 0.01, "=-0.25");
+            archive.animation = timeline;
         }
     }
 
@@ -88,12 +86,30 @@ class Home extends View {
             TweenMax.set(this.itemsBg, {y:'100%'});
             TweenMax.set(this.itemsImg, {y:'101%'});
 
-            let timeline = new TimelineMax({delay:0, onComplete: () => {
-                resolve()
-            }});
-            timeline.staggerTo(this.items, 1.25, {y:'0%', ease: Expo.easeInOut}, 0.1);
-            timeline.staggerTo(this.itemsBg, 0.75, {y:'0%', ease: Expo.easeInOut}, 0.1, '-=1.5');
-            timeline.staggerTo(this.itemsImg, 1.25, {y:'0%', ease: Expo.easeInOut}, 0.1, '-=1.5');
+            Utils.getIntersections(this.items, 0, false, 100, (el, isIntersecting) => {
+                if(isIntersecting) {
+                    this.activeItems.push(el.target);
+
+                    let timeline = new TimelineMax({delay:0, onComplete: () => {
+                        this.bindArchive(el.target);
+                        Utils.isMobile() && el.target.animation.play();
+                    }});
+                    timeline.to(el.target, 1.25, {y:'0%', ease: Expo.easeInOut}, 0.1);
+                    timeline.to(el.target.querySelector('.archive__bg'), 0.75, {y:'0%', ease: Expo.easeInOut}, 0.1, '-=1.5');
+                    timeline.to(el.target.querySelector('.archive__img'), 1.25, {y:'0%', ease: Expo.easeInOut}, 0.1, '-=1.5');
+                }
+                else {
+                    for(let item of this.activeItems) {
+
+                        if(item.isEqualNode(el.target)) {
+                            let index = this.activeItems.indexOf(item);
+                            this.activeItems.splice(index, 1);
+                        }
+                    }
+                }
+            });
+
+            resolve();
         });
     }
 
@@ -110,11 +126,26 @@ class Home extends View {
     disappear() {
         super.disappear();
 
+        let activeItemsImg = [];
+        let activeItemsBg = [];
+
+        for (let item of this.activeItems) {
+            activeItemsBg.push(item.querySelector('.archive__bg'));
+            activeItemsImg.push(item.querySelector('.archive__img'));
+        }
+
         return new Promise((resolve, reject) => {
-            let timeline = new TimelineMax({delay:0});
-            timeline.staggerTo(this.itemsImg, 1.25, {y:'-101%', ease: Expo.easeInOut}, 0.1);
-            timeline.staggerTo(this.itemsBg, 0.75, {y:'-100%', ease: Expo.easeInOut}, 0.1, '-=1');
-            timeline.staggerTo(this.items, 1.25, {y:'-50%', ease: Expo.easeInOut, onComplete: () => {
+
+            if(Utils.isMobile()) {
+                for (let item of this.activeItems) {
+                    item.animation.reverse();
+                }
+            }
+
+            let timeline = new TimelineMax({delay: 0});
+            timeline.staggerTo(activeItemsImg, 1.25, {y:'-101%', ease: Expo.easeInOut}, 0.1);
+            timeline.staggerTo(activeItemsBg, 0.75, {y:'-100%', ease: Expo.easeInOut}, 0.1, '-=1');
+            timeline.staggerTo(this.activeItems, 1.25, {y:'-50%', ease: Expo.easeInOut, onComplete: () => {
                 resolve();
             }}, 0.1, '-=1.5');
         });
@@ -128,6 +159,17 @@ class Home extends View {
      */
     destroy(){
         super.destroy();
+    }
+
+    /**
+     * Bind UI Actions to archive
+     * @param archive DOM Element
+     */
+
+    bindArchive(archive) {
+        archive.addEventListener('mouseenter', (e) => this.onMouseEnter(e));
+        archive.addEventListener('mouseleave', (e) => this.onMouseLeave(e));
+        archive.addEventListener('click', (e) => this.onMouseClick(e));
     }
 
     /**
@@ -155,7 +197,6 @@ class Home extends View {
 
     onMouseClick(e){
         localStorage.setItem('lastItemClicked', e.currentTarget.getAttribute('href'));
-
         e.currentTarget.animation.reverse();
     }
 
@@ -169,12 +210,20 @@ class Home extends View {
         let href = localStorage.getItem('lastItemClicked');
 
         if(href != null) {
+            let limit = this.archives.scrollWidth - window.innerWidth;
             let el = this.archives.querySelector('[href="' + href + '"]');
             let elWidth = el.offsetWidth;
             let elPos = el.getBoundingClientRect().left;
             pos = elPos + elWidth / 2 - window.innerWidth / 2;
-        }
 
+            // Make sure the position isn't outside limit
+            if(pos > limit) {
+                pos = limit;
+            }
+            if(pos < 0) {
+                pos = 0;
+            }
+        }
 
         return pos;
     }

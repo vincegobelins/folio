@@ -14,7 +14,6 @@ class Header {
             window.addEventListener('scroll', (e) => this.handleScroll(e));
 
             TweenLite.set('.logo, .header-menu__link', {y:-100, opacity: 0});
-            this.show();
         }
     }
 
@@ -57,13 +56,17 @@ class Header {
     }
     
     show(){
-        TweenMax.staggerTo('.logo, .header-menu__link', 0.75, {opacity:1, y:0, ease: Expo.easeInOut}, 0.05);
-        this.isDisplayed = true;
+        if(!Utils.isMobile()) {
+            TweenMax.staggerTo('.logo, .header-menu__link', 0.75, {opacity:1, y:0, ease: Expo.easeInOut}, 0.05);
+            this.isDisplayed = true;
+        }
     }
     
     hide(){
-        TweenMax.staggerTo('.logo, .header-menu__link', 0.75, {opacity:0, y:-100, ease: Expo.easeInOut}, 0.05);
-        this.isDisplayed = false;
+        if(!Utils.isMobile()) {
+            TweenMax.staggerTo('.logo, .header-menu__link', 0.75, {opacity: 0, y: -100, ease: Expo.easeInOut}, 0.05);
+            this.isDisplayed = false;
+        }
     }
 }
 

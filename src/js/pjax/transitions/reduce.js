@@ -21,7 +21,7 @@ class Reduce extends Transition {
 
     constructor() {
         super();
-        this.type = 'enlarge';
+        this.type = 'reduce';
     }
 
     /**
@@ -40,14 +40,14 @@ class Reduce extends Transition {
             // get initial position
             let pos = media.getBoundingClientRect();
             let duplicateObj = media.cloneNode(true);
-            duplicateObj.querySelector('iframe').remove();
+            let iframe = duplicateObj.querySelector('iframe');
+            iframe && iframe.remove();
 
             // copy to the end of the body
             document.body.append(duplicateObj);
 
             // copy position
             TweenMax.set(duplicateObj, {'left': pos.left, 'top': pos.top, 'position':'fixed', opacity: 1, zIndex: -1 });
-
 
             // find old position with the new content
             let href = localStorage.getItem('lastItemClicked');
@@ -61,14 +61,13 @@ class Reduce extends Transition {
             // make transition
             resolve();
 
-            let timeline = new TimelineMax({delay:1.75, onComplete: () => {
-                TweenLite.set(nextObj, {opacity: 1, immediateRender:false });
+            let timeline = new TimelineMax({delay:1.5, onComplete: () => {
+                TweenLite.set(nextObj, {opacity: 1});
                 duplicateObj.remove();
             }});
             timeline.set(nextObj, {opacity: 0, immediateRender:false });
             timeline.set(duplicateObj, {zIndex: 0, immediateRender:false });
-            timeline.to(duplicateObj, 1, {'left': xPos, 'top': yPos, ease: Expo.easeInOut});
-            timeline.to(duplicateObj, 1, {scale: scale, ease: Expo.easeInOut});
+            timeline.to(duplicateObj, 2, {scale: scale, 'left': xPos, 'top': yPos, ease: Expo.easeInOut});
         });
     }
 }

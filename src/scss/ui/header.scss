@@ -66,6 +66,10 @@
             width: calc(100% - 2 * #{$padding--standard});
           }
         }
+
+        &:after {
+          content: none;
+        }
       }
     }
 
@@ -102,8 +106,9 @@
   text-decoration: none;
   text-transform: uppercase;
   font-family: $font--main;
-  font-size: 4rem;
+  font-size: 2rem;
   letter-spacing: $letter--spacing;
+  line-height: 1;
   padding: 0 2 * $padding--standard;
   transition: opacity $duration $ease, visibility $duration $ease, color $duration $ease;
 
@@ -113,10 +118,15 @@
 
   @include media("<tablet") {
     padding: 0 $padding--standard;
-    font-size: 2.5rem;
+    font-size: 1.75rem;
   }
 
   @include media("<phone") {
     font-size: 1.5rem;
+  }
+
+  &:before,
+  &:after {
+    content: none;
   }
 }
